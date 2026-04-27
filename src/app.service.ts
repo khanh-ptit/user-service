@@ -44,10 +44,7 @@ export class AppService implements OnModuleInit {
     return 'Hello World!';
   }
 
-  getHealth(): any {
-    return new ResponseBuilder()
-      .withCode(ResponseCodeEnum.SUCCESS)
-      .withMessage('This is purchased-request-service')
-      .build();
+  getHealth(): string {
+    return 'This is user-service';
   }
 }

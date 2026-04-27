@@ -1,15 +1,15 @@
 import { BaseRepository } from '@app/database/base/repository/base.repository';
 import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { File } from '../entities/file.entity';
 
 @Injectable()
 export class FileRepository extends BaseRepository<File> {
   constructor(
-    @InjectModel(File.name)
-    protected fileModel: Model<File>,
+    @InjectRepository(File)
+    protected readonly fileRepository: Repository<File>,
   ) {
-    super(fileModel);
+    super(fileRepository);
   }
 }

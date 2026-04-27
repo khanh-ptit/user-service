@@ -1,9 +1,12 @@
 services:
-  purchased-service:
-    image: btmv-purchased-request-service:latest
-    container_name: btmv-purchased-request-service
+  user-service:
+    image: pirelli-user-service:latest
+    container_name: user-service
     env_file:
       - .env
+    build:
+      context: .
+      dockerfile: Dockerfile
     networks:
       mesx-net:
         ipv4_address: ${CONTAINER_NETWORK_IP}

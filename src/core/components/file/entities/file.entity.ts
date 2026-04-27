@@ -1,34 +1,17 @@
-import { BaseDocument } from '@app/database/base/document/base.document';
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Types } from 'mongoose';
+import { Entity, Column } from 'typeorm';
+import { BaseEntity } from '@app/database/base/entity/base.entity';
 
-export type FileDocument = File & BaseDocument;
+@Entity('files')
+export class File extends BaseEntity {
+  @Column({ type: 'varchar', nullable: false })
+  resourceId: string;
 
-@Schema({ timestamps: true, collection: 'files' })
-export class File extends BaseDocument {
-  @Prop({
-    type: Types.ObjectId,
-    required: true,
-  })
-  resourceId: Types.ObjectId;
-
-  @Prop({
-    type: String,
-    required: true,
-  })
+  @Column({ type: 'varchar', nullable: false })
   resource: string;
 
-  @Prop({
-    type: Types.ObjectId,
-    required: true,
-  })
-  fileId: Types.ObjectId;
+  @Column({ type: 'varchar', nullable: false })
+  fileId: string;
 
-  @Prop({
-    type: String,
-    required: false,
-  })
+  @Column({ type: 'varchar', nullable: true })
   filename: string;
 }
-
-export const FileSchema = SchemaFactory.createForClass(File);

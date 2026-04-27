@@ -9,6 +9,7 @@ import { I18nService } from 'nestjs-i18n';
 import { HttpClientService } from '../http-client/http-client.service';
 import { UPLOAD_FILE_ENPOINT } from './file.constant';
 import { FileRepository } from './repositories/file.repository';
+import { Not, In } from 'typeorm';
 
 @Injectable()
 export class FileService {
@@ -33,7 +34,7 @@ export class FileService {
   async saveFiles(resourceId: any, resource: any, files: any): Promise<any> {
     // Delete Old Files
     if (resourceId != null) {
-      await this.fileRepository.deleteMany({
+      await this.fileRepository.delete({
         resourceId: resourceId,
       });
     }
@@ -46,16 +47,14 @@ export class FileService {
           .withMessage(fileResponse.message)
           .build();
       }
-      const fileDocuments = fileResponse.data.map((fileId, index) =>
-        this.fileRepository.createDocument({
-          resourceId: resourceId,
-          resource: resource,
-          fileId,
-          filename: files[index].filename,
-        }),
-      );
+      const fileDocuments = fileResponse.data.map((fileId, index) => ({
+        resourceId: resourceId,
+        resource: resource,
+        fileId,
+        filename: files[index].filename,
+      }));
 
-      return await this.fileRepository.create(fileDocuments);
+      return await this.fileRepository.createMany(fileDocuments);
     }
     return new ResponseBuilder()
       .withCode(ResponseCodeEnum.SUCCESS)
@@ -156,22 +155,13 @@ export class FileService {
         const deleteFiles = await this.fileRepository.findAll({
           resource: resource,
           resourceId: resourceId,
-          fileId: { $nin: oldFileIds },
-        });
-        const bulkOps: any[] = [];
-        deleteFiles.forEach((file) => {
-          bulkOps.push({
-            updateOne: {
-              filter: { fileId: file?.fileId },
-              update: {
-                $set: { deletedAt: new Date() },
-              },
-            },
-          });
+          fileId: Not(In(oldFileIds)) as any,
         });
 
         if (!isEmpty(deleteFiles)) {
-          await this.fileRepository.bulkWrite(bulkOps);
+          for (const file of deleteFiles) {
+            await this.fileRepository.softDelete(file.id, 0); // Assuming 0 as system user for now
+          }
           await this.deleteFileByIds(
             deleteFiles.map((deleteFile) => deleteFile.fileId?.toString()),
           );
@@ -185,15 +175,13 @@ export class FileService {
             .withMessage(fileResponse.message)
             .build();
         }
-        const fileUploadEntities = fileResponse.data.map((fileId) =>
-          this.fileRepository.createDocument({
-            resourceId: resourceId,
-            resource: resource,
-            fileId,
-          }),
-        );
+        const fileUploadEntities = fileResponse.data.map((fileId) => ({
+          resourceId: resourceId,
+          resource: resource,
+          fileId,
+        }));
 
-        await this.fileRepository.create(fileUploadEntities);
+        await this.fileRepository.createMany(fileUploadEntities);
       }
     } catch (error) {
       console.log('error', error);

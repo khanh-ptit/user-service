@@ -1,37 +1,22 @@
-import { BaseDocument } from '@app/database/base/document/base.document';
+import { BaseEntity } from '@app/database/base/entity/base.entity';
 import { BaseRepository } from '@app/database/base/repository/base.repository';
-import { AnyBulkWriteOperation, FilterQuery, PipelineStage } from 'mongoose';
 
 export abstract class BaseService<
-  E extends BaseDocument,
+  E extends BaseEntity,
   R extends BaseRepository<E>,
 > {
   protected constructor(protected readonly repository: R) {}
 
-  findOneById(id: string) {
+  findOneById(id: any) {
     return this.repository.findOneById(id);
   }
 
-  findOneByCondition(condition: FilterQuery<E>) {
+  findOneByCondition(condition: any) {
     return this.repository.findOne(condition);
   }
 
-  findAllByCondition(
-    condition: FilterQuery<E> = {},
-    selectFields: string[] = [],
-  ) {
-    return this.repository.findAll(condition, selectFields);
-  }
-
-  findAllSorted(
-    condition: FilterQuery<E> = {},
-    sort: Record<string, any> = { createdAt: -1, _id: -1 },
-  ) {
-    return this.repository.findAllSorted(condition, sort);
-  }
-
-  aggregate(pipeline: PipelineStage[]) {
-    return this.repository.aggregate(pipeline);
+  findAllByCondition(condition: any = {}) {
+    return this.repository.findAll(condition);
   }
 
   create(data: Partial<E>) {
@@ -42,27 +27,19 @@ export abstract class BaseService<
     return this.repository.createMany(data);
   }
 
-  update(id: string, data: Partial<E>) {
-    return this.repository.findByIdAndUpdate(id, data);
+  update(id: any, data: Partial<E>) {
+    return this.repository.update(id, data);
   }
 
-  deleteOne(condition: FilterQuery<E>) {
-    return this.repository.deleteOne(condition);
+  delete(id: any) {
+    return this.repository.delete(id);
   }
 
-  deleteMany(condition: FilterQuery<E>) {
-    return this.repository.deleteMany(condition);
+  softDelete(id: any, deletedBy: number | undefined) {
+    return this.repository.softDelete(id, deletedBy as number);
   }
 
-  softDelete(condition: FilterQuery<E>, deletedBy: number | undefined) {
-    return this.repository.softDelete(condition, deletedBy as number);
-  }
-
-  bulkWrite(operations: AnyBulkWriteOperation<E>[]) {
-    return this.repository.bulkWrite(operations);
-  }
-
-  updateMany(condition: FilterQuery<E>, data: Partial<E>) {
-    return this.repository.updateMany(condition, data);
+  paginate(filter: any = {}, options: any = {}) {
+    return this.repository.paginate(filter, options);
   }
 }

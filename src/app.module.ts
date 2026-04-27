@@ -24,6 +24,7 @@ import { NatsClientModule } from './core/transporter/nats-transporter/nats-clien
 import { FileModule } from './core/components/file/file.module';
 import { HttpClientModule } from './core/components/http-client/http-client.module';
 import { RabbitMqModule } from './core/transporter/rabbitmq/rabbitmq.module';
+import { UserModule } from './components/user-service/user.module';
 
 @Module({
   imports: [
@@ -55,6 +56,7 @@ import { RabbitMqModule } from './core/transporter/rabbitmq/rabbitmq.module';
     HttpClientModule,
     FileModule,
     RabbitMqModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [

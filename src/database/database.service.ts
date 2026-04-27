@@ -1,39 +1,27 @@
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
-import { InjectConnection } from '@nestjs/mongoose';
-import { Connection } from 'mongoose';
+import { InjectDataSource } from '@nestjs/typeorm';
+import { DataSource } from 'typeorm';
 
 @Injectable()
 export class DatabaseService implements OnModuleInit {
   private readonly logger = new Logger(DatabaseService.name);
 
-  constructor(@InjectConnection() private readonly connection: Connection) {}
+  constructor(@InjectDataSource() private readonly dataSource: DataSource) {}
 
   async onModuleInit() {
-    this.logger.log('Initializing MongoDB connection...');
+    this.logger.log('Initializing PostgreSQL connection...');
 
-    this.connection.on('connected', () => {
-      this.logger.log('✅ MongoDB connected successfully');
-    });
-
-    this.connection.on('error', (error) => {
-      this.logger.error('❌ MongoDB connection error:', error);
-    });
-
-    this.connection.on('disconnected', () => {
-      this.logger.warn('⚠️ MongoDB disconnected');
-    });
-
-    this.connection.on('reconnected', () => {
-      this.logger.log('🔄 MongoDB reconnected');
-    });
+    if (this.dataSource.isInitialized) {
+      this.logger.log('✅ PostgreSQL connected successfully');
+    } else {
+      this.logger.error('❌ PostgreSQL connection failed');
+    }
 
     try {
-      if (this.connection.db) {
-        await this.connection.db.admin().ping();
-        this.logger.log('✅ MongoDB ping successful');
-      }
+      await this.dataSource.query('SELECT 1');
+      this.logger.log('✅ PostgreSQL ping successful');
     } catch (error) {
-      this.logger.error('❌ MongoDB ping failed:', error);
+      this.logger.error('❌ PostgreSQL ping failed:', error);
     }
   }
 }

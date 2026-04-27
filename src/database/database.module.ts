@@ -1,9 +1,8 @@
 import { DynamicModule, Global, Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { MongooseModule } from '@nestjs/mongoose';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { databaseProviders } from './database.provider';
-import { databaseSchema } from './database.schema';
-import * as mongoose from 'mongoose';
+import { databaseEntities } from './database.entities';
 
 @Global()
 @Module({})
@@ -12,36 +11,27 @@ export class DatabaseModule {
     return {
       module: DatabaseModule,
       imports: [
-        MongooseModule.forRootAsync({
+        TypeOrmModule.forRootAsync({
           imports: [ConfigModule],
           useFactory: (configService: ConfigService) => {
-            const username = configService.get<string>('database.username');
-            const password = configService.get<string>('database.password');
-            const host = configService.get<string>('database.host');
-            const port = configService.get<number>('database.port');
-            const database = configService.get<string>('database.database');
-            const authSource = configService.get<string>('database.authSource');
-            const mongoUri = `mongodb://${username}:${password}@${host}:${port}/${database}?authSource=${authSource}`;
-            const logging = configService.get<boolean>('database.logging');
-
-            mongoose.set('debug', logging);
-
             return {
-              uri: mongoUri,
-              maxPoolSize: 10,
-              minPoolSize: 2,
-              maxIdleTimeMS: 30000,
-              serverSelectionTimeoutMS: 5000,
-              heartbeatFrequencyMS: 10000,
-              retryWrites: true,
+              type: 'postgres',
+              host: configService.get<string>('database.host'),
+              port: configService.get<number>('database.port'),
+              username: configService.get<string>('database.username'),
+              password: configService.get<string>('database.password'),
+              database: configService.get<string>('database.database'),
+              entities: databaseEntities,
+              synchronize: configService.get<boolean>('database.synchronize'),
+              logging: configService.get<boolean>('database.logging'),
             };
           },
           inject: [ConfigService],
         }),
-        MongooseModule.forFeature(databaseSchema),
+        TypeOrmModule.forFeature(databaseEntities),
       ],
       providers: databaseProviders,
-      exports: databaseProviders,
+      exports: [TypeOrmModule, ...databaseProviders],
     };
   }
 }
