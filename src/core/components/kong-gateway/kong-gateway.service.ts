@@ -31,7 +31,7 @@ export class KongGatewayService
     this.upstreamName = this.boot.get('kong.upstream.name') || '';
     this.apiPath = this.boot.get('service.apiPath') || '';
     this.serviceName = this.boot.get('service.name') || '';
-    this.dns = this.boot.get<string>('service.name');
+    this.dns = `${this.boot.get<string>('service.name')}.service.consul`;
 
     this.init();
   }
@@ -80,6 +80,7 @@ export class KongGatewayService
 
   async createOrUpdateRoute(): Promise<any> {
     const url = `${this.host}:${this.port}/services/${this.upstreamName}/routes/${this.serviceName}`;
+    // url = `http://localhost:8001/services/user-service/routes/user-service`;
     this.logger.log(`Upserting Kong Route: ${this.serviceName} at ${url}`);
 
     const route = await firstValueFrom(
