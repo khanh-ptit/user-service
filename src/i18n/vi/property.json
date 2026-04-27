@@ -1,0 +1,14 @@
+{
+  "obj": {
+    "costCenter": "Cost center",
+    "item": "Sản phẩm",
+    "supplier": "Nhà cung cấp",
+    "currency": "Tiền tệ",
+    "department": "Phòng ban",
+    "itemGroup": "Nhóm sản phẩm",
+    "itemSupplier": "Mã sản phẩm Nhà cung cấp",
+    "maker": "Maker",
+    "unit": "Đơn vị tính",
+    "purchasePlan": "Kế hoạch mua hàng"
+  }
+}

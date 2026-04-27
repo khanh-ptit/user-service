@@ -1,0 +1,34 @@
+{
+  "purchasedRequest": {
+    "purchasePlanGroup": {
+      "name": "Quản lý Kế hoạch mua hàng",
+      "listPurchasePlan": "Danh sách kế hoạch mua hàng",
+      "createPurchasePlan": "Tạo kế hoạch mua hàng",
+      "updatePurchasePlan": "Sửa kế hoạch mua hàng",
+      "deletePurchasePlan": "Xóa kế hoạch mua hàng",
+      "detailPurchasePlan": "Chi tiết kế hoạch mua hàng",
+      "importPurchasePlan": "Import kế hoạch mua hàng",
+      "requestApprovalPurchasePlan": "Yêu cầu phê duyệt kế hoạch mua hàng",
+      "approvePurchasePlan": "Phê duyệt kế hoạch mua hàng",
+      "rejectPurchasePlan": "Từ chối kế hoạch mua hàng",
+      "cancelPurchasePlan": "Hủy kế hoạch mua hàng",
+      "requestSupplementaryInfo": "Yêu cầu bổ sung thông tin"
+    },
+    "purchaseRequestGroup": {
+      "name": "Quản lý Yêu cầu mua hàng",
+      "listPurchaseRequest": "Danh sách yêu cầu mua hàng",
+      "createPurchaseRequest": "Tạo yêu cầu mua hàng",
+      "updatePurchaseRequest": "Sửa yêu cầu mua hàng",
+      "deletePurchaseRequest": "Xóa yêu cầu mua hàng",
+      "detailPurchaseRequest": "Chi tiết yêu cầu mua hàng",
+      "requestApprovalPurchaseRequest": "Yêu cầu phê duyệt yêu cầu mua hàng",
+      "approvePurchaseRequest": "Phê duyệt yêu cầu mua hàng",
+      "rejectPurchaseRequest": "Từ chối yêu cầu mua hàng",
+      "cancelPurchaseRequest": "Hủy yêu cầu mua hàng",
+      "importDetailPurchaseRequest": "Import Chi tiết yêu cầu mua hàng",
+      "assignBuyerPurchaseRequest": "Phân công người mua hàng",
+      "listPurchaseRequestForPo": "Danh sách yêu cầu mua hàng tạo PO",
+      "requestSupplementaryInfo": "Yêu cầu bổ sung thông tin"
+    }
+  }
+}

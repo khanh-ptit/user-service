@@ -1,0 +1,33 @@
+{
+  "purchasedRequest": {
+    "itemLine": {
+      "sheetName": "Danh sách sản phẩm",
+      "itemCode": "Mã sản phẩm *",
+      "quantity": "Số lượng yêu cầu *",
+      "planDeliveryDate": "Ngày yêu cầu nhận hàng *",
+      "costCenterCode": "Bộ phận chịu chi phí *"
+    },
+    "material": {
+      "sheetName": "Nguyên vật liệu gửi đi",
+      "processedItemCode": "Thành phẩm gia công *",
+      "materialItemCode": "Mã nguyên vật liệu gửi đi *",
+      "exportQuantity": "SL xuất dự tính *"
+    }
+  },
+  "purchaseRequestItem": {
+    "colname": {
+      "itemCode": "Mã quản trị",
+      "partNo": "Part No.",
+      "unit": "Đơn vị tính",
+      "quantity": "SL yêu cầu",
+      "deliveryRequestDate": "Ngày yêu cầu nhận hàng",
+      "budgetCode": "Budget Code",
+      "price": "Đơn giá nguyên tệ",
+      "purposeOfUsingGood": "Purpose of using goods",
+      "remark": "Remark",
+      "isChemical": "Chemical",
+      "isDesignatedSupplier": "Designated supplier",
+      "supposedSupplier": "Supposed supplier"
+    }
+  }
+}

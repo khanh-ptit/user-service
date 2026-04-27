@@ -1,0 +1,18 @@
+services:
+  purchased-service:
+    image: btmv-purchased-request-service:latest
+    container_name: btmv-purchased-request-service
+    env_file:
+      - .env
+    networks:
+      mesx-net:
+        ipv4_address: ${CONTAINER_NETWORK_IP}
+    working_dir: /app
+    volumes:
+      - ./:/app
+    command: npm run start:dev
+
+networks:
+  mesx-net:
+    name: ${MESX_NET_NAME}
+    external: true

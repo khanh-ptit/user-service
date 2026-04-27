@@ -1,0 +1,7 @@
+{
+  "NOT_FOUND": "該当データがありません。",
+  "INTERNAL_SERVER_ERROR": "サーバーエラーが発生しました。",
+  "UNAUTHORIZED": "アクセスが拒否されました。",
+  "FORBIDDEN": "アクセスしようとしたページは表示できませんでした。",
+  "BAD_REQUEST": "リクエストが不正です。"
+}

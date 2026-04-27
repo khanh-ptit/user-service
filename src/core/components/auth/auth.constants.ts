@@ -1,0 +1,1 @@
+export const SUPER_ADMIN_CODE = '000000001';
