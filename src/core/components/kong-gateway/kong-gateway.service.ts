@@ -31,7 +31,7 @@ export class KongGatewayService
     this.upstreamName = this.boot.get('kong.upstream.name') || '';
     this.apiPath = this.boot.get('service.apiPath') || '';
     this.serviceName = this.boot.get('service.name') || '';
-    this.dns = `${this.boot.get<string>('service.name')}.service.consul`;
+    this.dns = `${this.boot.get<string>('service.name')}.service.dc1.consul`;
 
     this.init();
   }

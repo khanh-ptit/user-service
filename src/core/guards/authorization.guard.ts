@@ -13,7 +13,7 @@ import { AuthService } from '../components/auth/auth.service';
 import { PERMISSION_CODE } from '../decorator/get-code.decorator';
 import { IS_PUBLIC_KEY } from '../decorator/set-public.decorator';
 import { requestContext } from '../context/request.context';
-import { UserService } from '@app/components/user-service/user.service';
+import { UserService } from '@app/components/user/user.service';
 
 @Injectable({ scope: Scope.REQUEST })
 export class AuthorizationGuard implements CanActivate {
