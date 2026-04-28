@@ -24,7 +24,7 @@ import { NatsClientModule } from './core/transporter/nats-transporter/nats-clien
 import { FileModule } from './core/components/file/file.module';
 import { HttpClientModule } from './core/components/http-client/http-client.module';
 import { RabbitMqModule } from './core/transporter/rabbitmq/rabbitmq.module';
-import { UserModule } from './components/user-service/user.module';
+import { UserModule } from './components/user/user.module';
 
 @Module({
   imports: [
@@ -64,10 +64,10 @@ import { UserModule } from './components/user-service/user.module';
       provide: APP_PIPE,
       useClass: ValidationPipe,
     },
-    {
-      provide: APP_GUARD,
-      useClass: AuthorizationGuard,
-    },
+    // {
+    //   provide: APP_GUARD,
+    //   useClass: AuthorizationGuard,
+    // },
     AppService,
   ],
 })
