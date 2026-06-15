@@ -17,10 +17,12 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
+            set -e # BẮT BUỘC: Dừng ngay lập tức nếu có bất kỳ lệnh nào bị lỗi
+
             mkdir -p ~/projects/user-service
             cd ~/projects/user-service
-            
-            # Kéo code mới nhất từ nhánh main
+
+            # Kéo code mới nhất từ nhánh main (Dành cho Repo Public)
             if [ ! -d ".git" ]; then
               git clone https://github.com/khanh-ptit/user-service.git .
             else
@@ -31,14 +33,14 @@ jobs:
 
             # Build Docker image
             docker build -t user-service:latest .
-            
+
             # Dừng và xoá container cũ (nếu có)
             docker stop user-service || true
             docker rm user-service || true
-            
+
             # Chạy container mới (nếu bạn dùng mạng chung mesx-net với infrastructure, cần thêm --network)
             # Tạm thời chạy port 3000 ra ngoài
             docker run -d --name user-service -p 3000:3000 user-service:latest
-            
+
             # Xóa các image cũ lủng lẳng để giải phóng bộ nhớ
             docker image prune -f
