@@ -38,9 +38,8 @@ jobs:
             docker stop user-service || true
             docker rm user-service || true
 
-            # Chạy container mới (nếu bạn dùng mạng chung mesx-net với infrastructure, cần thêm --network)
-            # Tạm thời chạy port 3000 ra ngoài
-            docker run -d --name user-service -p 3000:3000 user-service:latest
+            # Chạy container mới với biến môi trường và mạng chung (mesx-net)
+            docker run -d --name user-service --env-file .env --network mesx-net -p 3000:3000 user-service:latest
 
             # Xóa các image cũ lủng lẳng để giải phóng bộ nhớ
             docker image prune -f
