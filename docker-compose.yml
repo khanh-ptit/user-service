@@ -1,0 +1,18 @@
+services:
+  user-service:
+    image: pirelli-user-service:latest
+    container_name: user-service
+    env_file:
+      - .env
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      mesx-net:
+        ipv4_address: ${USER_SERVICE_IP}
+    working_dir: /app
+
+networks:
+  mesx-net:
+    name: ${MESX_NET_NAME}
+    external: true
