@@ -31,25 +31,8 @@ jobs:
               git pull origin main
             fi
 
-            # Build Docker image
-            docker build -t user-service:latest .
-
-            # Dừng và xoá container cũ (nếu có)
-            docker stop user-service || true
-            docker rm user-service || true
-
-            # Tạo mạng chung mesx-net nếu chưa có để tránh lỗi network not found
-            docker network create mesx-net || true
-
-            # Lấy IP tĩnh từ file .env (nếu có cấu hình)
-            IP_FLAG=""
-            if grep -q "^USER_SERVICE_IP=" .env; then
-              USER_IP=$(grep "^USER_SERVICE_IP=" .env | cut -d '=' -f2 | tr -d '"' | tr -d "'")
-              IP_FLAG="--ip $USER_IP"
-            fi
-
-            # Chạy container mới với biến môi trường và mạng chung (mesx-net)
-            docker run -d --name user-service --env-file .env --network mesx-net $IP_FLAG -p 3000:3000 user-service:latest
+            # Dựng ứng dụng bằng Docker Compose (đã dùng file chuẩn Prod)
+            docker compose up -d --build
 
             # Xóa các image cũ lủng lẳng để giải phóng bộ nhớ
             docker image prune -f
