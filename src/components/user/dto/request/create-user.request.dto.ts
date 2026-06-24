@@ -13,4 +13,12 @@ export class CreateUserRequestDto extends BaseDto {
   @IsString()
   @IsNotEmpty()
   password: string;
+
+  @IsString()
+  @IsNotEmpty()
+  phone: string;
+
+  @IsString()
+  @IsNotEmpty()
+  username: string;
 }

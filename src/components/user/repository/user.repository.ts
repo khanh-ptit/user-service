@@ -2,6 +2,7 @@ import { BaseRepository } from '@app/database/base/repository/base.repository';
 import { InjectDataSource } from '@nestjs/typeorm';
 import { UserEntity } from 'src/components/user/entities/user.entity';
 import { DataSource } from 'typeorm';
+import * as bcrypt from 'bcrypt';
 import { CreateUserRequestDto } from '../dto/request/create-user.request.dto';
 import { GetListUserRequestDto } from '../dto/request/get-list-user.request.dto';
 
@@ -17,7 +18,9 @@ export class UserRepository extends BaseRepository<UserEntity> {
     const user = new UserEntity();
     user.name = request.name;
     user.email = request.email;
-    user.password = request.password;
+    user.password = bcrypt.hashSync(request.password, 10);
+    user.username = request.username;
+    user.phone = request.phone;
 
     return user;
   }

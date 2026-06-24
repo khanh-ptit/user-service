@@ -8,5 +8,5 @@ export default registerAs('database', () => ({
   password: process.env.DATABASE_POSTGRES_PASSWORD,
   database: process.env.DATABASE_NAME,
   logging: process.env.NODE_ENV === 'development',
-  synchronize: process.env.NODE_ENV === 'development', // Be careful with this in production
+  synchronize: false, // Turned off to rely safely on migrations
 }));

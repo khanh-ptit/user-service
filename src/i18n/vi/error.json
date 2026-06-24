@@ -42,5 +42,6 @@
   "APPROVAL_PROCESS_ERROR": "Yêu cầu duyệt thất bại, kiểm tra lại cấu hình quy trình duyệt",
   "SERVICE_ITEMS_SAME_ITEM_ID_DIFFERENT_BUYER": "Các dòng dịch vụ có cùng mã sản phẩm phải được phân công cho cùng một người mua hàng",
   "USER_NOT_IN_DEPARTMENT": "Người thực hiện không thuộc Bộ phận",
-  "CANNOT_RETURN_PURCHASED_REQUEST": "Không thể trả lại yêu cầu mua hàng"
+  "CANNOT_RETURN_PURCHASED_REQUEST": "Không thể trả lại yêu cầu mua hàng",
+  "USER_EXISTED": "Người dùng đã tồn tại"
 }

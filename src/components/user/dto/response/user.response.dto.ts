@@ -16,19 +16,7 @@ export class UserResponseDto {
 
   @ApiProperty({ example: 'abc', description: '' })
   @Expose()
-  fullName: string;
-
-  @ApiProperty({ example: 1, description: '' })
-  @Expose()
-  companyId: string;
-
-  @ApiProperty({ example: '2021-07-01', description: '' })
-  @Expose()
-  dateOfBirth: string;
-
-  @ApiProperty({ example: 'abc', description: '' })
-  @Expose()
-  code: string;
+  name: string;
 
   @ApiProperty({ example: '0987-1254-125', description: '' })
   @Expose()
