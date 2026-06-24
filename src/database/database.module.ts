@@ -24,6 +24,8 @@ export class DatabaseModule {
               entities: databaseEntities,
               synchronize: configService.get<boolean>('database.synchronize'),
               logging: configService.get<boolean>('database.logging'),
+              migrations: [__dirname + '/migration/*{.ts,.js}'],
+              migrationsRun: true,
             };
           },
           inject: [ConfigService],
