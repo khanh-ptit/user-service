@@ -4,6 +4,8 @@ import { CreateUserService } from './commands/create-user.service';
 import { GetListUserRequestDto } from './dto/request/get-list-user.request.dto';
 import { GetListUserService } from './commands/get-list-user.service';
 import { GetDetailUserService } from './commands/get-detail-user.service';
+import { MessagePattern } from '@nestjs/microservices';
+import { NatsService } from '@app/core/transporter/nats-transporter/nats.config';
 
 @Controller('')
 export class UserController {
@@ -26,5 +28,10 @@ export class UserController {
   @Get(':id')
   getDetail(@Param('id') id: number) {
     return this.getDetailUserService.execute(Number(id));
+  }
+
+  @MessagePattern(`${NatsService.USER}.get_detail_by_ids`)
+  getDetailByIds(@Body() request: { id: number }) {
+    return this.getDetailUserService.execute(Number(request.id));
   }
 }

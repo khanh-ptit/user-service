@@ -30,5 +30,8 @@ export class UserResponseDto {
   createdAt: string;
 
   @Expose()
+  createdBy: number;
+
+  @Expose()
   updatedAt: string;
 }
